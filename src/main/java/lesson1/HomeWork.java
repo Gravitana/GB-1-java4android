@@ -1,4 +1,4 @@
-package lesson01;
+package lesson1;
 
 public class HomeWork {
     public static void main(String[] args) {
@@ -8,8 +8,8 @@ public class HomeWork {
         int d = 5;
 
         String name = "Андроид";
-        int year = 2020; // високосный
-//        int year = 1700; // нет
+//        int year = 2020; // високосный
+        int year = 1900; // нет
 
         System.out.println("----- 2 -----");
         testVars();
@@ -50,7 +50,7 @@ public class HomeWork {
      */
     private static void calc(int a, double b, int c, int d) {
         double result = a * (b + ((double)c / d));
-        System.out.println("Результат a*(b+(c/d)): " + result);
+        System.out.println("Результат " + a + "*(" + b + "+(" + c + "/" + d + ")): " + result);
     }
 
     /*
