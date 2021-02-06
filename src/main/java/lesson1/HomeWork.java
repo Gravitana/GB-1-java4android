@@ -43,6 +43,13 @@ public class HomeWork {
         System.out.println("varDouble: " + varDouble);
         System.out.println("varChar: " + varChar);
         System.out.println("varBoolean: " + varBoolean);
+
+        /* ------ Доработка ------ */
+        byte varByte = 127;
+        short varShort = 32767;
+        long varLong = 9223372036854775807L;
+        float varFloat = 3.4e+38F;
+        String varString = "Строковый набор символов";
     }
 
     /*
@@ -115,17 +122,23 @@ public class HomeWork {
 //        year = 2020; // високосный
 //        year = 2021; // нет
 
-        if (year % 400 == 0) {
-            System.out.println(year + " год – високосный!");
+//        if (year % 400 == 0) {
+//            System.out.println(year + " год – високосный!");
+//        }
+//        else if (year % 100 == 0) {
+//            System.out.println(year + " год не является високосным");
+//        }
+//        else if (year % 4 == 0) {
+//            System.out.println(year + " год – високосный!");
+//        }
+        /* ------ Доработка ------ */
+        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+            System.out.println("Год високосный.");
         }
-        else if (year % 100 == 0) {
-            System.out.println(year + " год не является високосным");
-        }
-        else if (year % 4 == 0) {
-            System.out.println(year + " год – високосный!");
-        }
+        /* ----------------------- */
         else {
             System.out.println(year + " год не является високосным");
         }
+
     }
 }
