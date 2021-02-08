@@ -1,6 +1,6 @@
-package lesson1;
+package homework;
 
-public class HomeWork {
+public class Task1to8 {
     public static void main(String[] args) {
         int a = 10;
         double b = 9.94;
@@ -22,7 +22,7 @@ public class HomeWork {
         System.out.println("----- 7 -----");
         hello(name);
         System.out.println("----- 8* -----");
-        testLeapYear(year);
+        printLeapYear(year);
     }
 
     /*
@@ -81,20 +81,25 @@ public class HomeWork {
      */
     private static boolean testDiapasone(int a, double b) {
         double sum = a + b;
-        return sum >= 10.0 & sum <= 20.0;
+        return sum >= 10.0 && sum <= 20.0;
     }
 
     /*
         5. Написать метод, которому в качестве параметра передается целое число, метод должен напечатать в консоль
         положительное ли число передали, или отрицательное. Замечание: ноль считаем положительным числом.
      */
-    private static void positiveOrNegative(int a) {
-        if (testNegative(a)) {
-            System.out.println("Число " + a + " – отрицательное");
+    private static void positiveOrNegative(int digit) {
+/*
+        if (testNegative(digit)) {
+            System.out.println("Число " + digit + " – отрицательное");
         }
         else {
-            System.out.println("Число " + a + " – положительное");
+            System.out.println("Число " + digit + " – положительное");
         }
+*/
+        /* ------ Доработка ------ */
+        String word = (digit < 0) ? "отрицательное" : "положительное";
+        System.out.printf("Число %d – %s%n", digit, word);
     }
 
     /*
@@ -109,14 +114,15 @@ public class HomeWork {
         метод должен вывести в консоль сообщение «Привет, указанное_имя!»
      */
     private static void hello(String name) {
-        System.out.println("Привет, " + name + "!");
+//        System.out.println("Привет, " + name + "!\r\n");
+        System.out.printf("Привет, %s%n", name);
     }
 
     /*
         8. * Написать метод, который определяет является ли год високосным, и выводит сообщение в консоль.
         Каждый 4-й год является високосным, кроме каждого 100-го, при этом каждый 400-й – високосный.
      */
-    private static void testLeapYear(int year) {
+    private static void printLeapYear(int year) {
 //        year = 1700; // нет
 //        year = 2000; // високосный
 //        year = 2020; // високосный
@@ -132,13 +138,17 @@ public class HomeWork {
 //            System.out.println(year + " год – високосный!");
 //        }
         /* ------ Доработка ------ */
-        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-            System.out.println("Год високосный.");
+        if (isLeapYear(year)) {
+            System.out.printf("%s год – високосный!%n", year);
         }
         /* ----------------------- */
         else {
-            System.out.println(year + " год не является високосным");
+            System.out.printf("%s год не является високосным%n", year);
         }
 
+    }
+
+    private static boolean isLeapYear(int year) {
+        return (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0));
     }
 }
