@@ -10,9 +10,9 @@ public class Task6 {
         граница показана символами ||, эти символы в массив не входят.
      */
     public static void main(String[] args){
-        final int SIZE = 5;
-        final int MIN = 0;
-        final int MAX = 2;
+        final int SIZE = 8;
+        final int MIN = -1;
+        final int MAX = 3;
 
         int[] data = new int[SIZE];
 
