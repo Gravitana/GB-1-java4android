@@ -1,12 +1,13 @@
 package homework3;
 
-import java.util.Arrays;
+import java.util.Random;
 
-public class Task1 {
+public class Task_3_1 {
     /*
         Создать массив из слов
         String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"}.
-        При запуске программы компьютер загадывает слово, запрашивает ответ у пользователя, сравнивает его с загаданным словом и сообщает, правильно ли ответил пользователь. Если слово не угадано, компьютер показывает буквы, которые стоят на своих местах.
+        При запуске программы компьютер загадывает слово, запрашивает ответ у пользователя, сравнивает его с загаданным словом и сообщает,
+        правильно ли ответил пользователь. Если слово не угадано, компьютер показывает буквы, которые стоят на своих местах.
         apple – загаданное
         apricot - ответ игрока
         ap############# (15 символов, чтобы пользователь не мог узнать длину слова)
@@ -16,7 +17,13 @@ public class Task1 {
         Играем до тех пор, пока игрок не отгадает слово.
         Используем только маленькие буквы.
      */
-    public static void main(String[] args){
 
+    public static void main(String[] args){
+        String[] words = {
+                "apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry", "garlic",
+                "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea", "peanut",
+                "pear", "pepper", "pineapple", "pumpkin", "potato",
+        };
     }
+
 }
