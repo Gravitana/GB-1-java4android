@@ -10,19 +10,21 @@ public class Task6 {
         граница показана символами ||, эти символы в массив не входят.
      */
     public static void main(String[] args){
-        final int SIZE = 8;
-        final int MIN = -1;
-        final int MAX = 3;
-
-        int[] data = new int[SIZE];
-
         /* Заполнение массива случайными значениями */
 
-        Random rand = new Random();
+//        final int SIZE = 8;
+//        final int MIN = -1;
+//        final int MAX = 3;
+//
+//        int[] data = new int[SIZE];
+//
+//        Random rand = new Random();
+//
+//        for (int i = 0; i < SIZE; i++) {
+//            data[i] = rand.nextInt(MAX - MIN + 1) + MIN;
+//        }
 
-        for (int i = 0; i < SIZE; i++) {
-            data[i] = rand.nextInt(MAX - MIN + 1) + MIN;
-        }
+        int[] data = new int[]{1,1,1,1,2,6};
 
         int pos = checkBalance(data);
         printArrayBalance(data, pos);
@@ -31,11 +33,14 @@ public class Task6 {
             System.out.println("Граница не найдена");
     }
 
+    /* ------ Доработка ------ */
     private static int checkBalance(int[] data) {
         final int MAX_INDEX = data.length - 1;
         int position = 0;
 
-        for (int i = 1; i < MAX_INDEX; i++) {
+        /* ------ Доработка ------ */
+//        for (int i = 1; i < MAX_INDEX; i++) {
+        for (int i = 1; i <= MAX_INDEX; i++) {
 
             int leftSum = data[0];
             int rightSum = data[MAX_INDEX];

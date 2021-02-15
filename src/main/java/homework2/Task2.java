@@ -12,8 +12,13 @@ public class Task2 {
 
         int[] data = new int[SIZE];
 
-        for (int i = 0, n = 0; i < data.length; i++, n += 3) {
-            data[i] = n;
+//        for (int i = 0, n = 0; i < data.length; i++, n += 3) {
+//            data[i] = n;
+//        }
+
+        /* ------ Доработка ------ */
+        for (int i = 0; i < data.length; i++) {
+            data[i] = i * 3;
         }
 
         System.out.println(Arrays.toString(data));
