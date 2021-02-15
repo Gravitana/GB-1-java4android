@@ -1,6 +1,4 @@
-package homework2;
-
-import java.util.Random;
+package lesson2.homework;
 
 public class Task6 {
     /*

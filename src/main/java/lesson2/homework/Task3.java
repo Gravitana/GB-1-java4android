@@ -1,6 +1,4 @@
-package homework2;
-
-import java.util.Arrays;
+package lesson2.homework;
 
 public class Task3 {
     /*
