@@ -1,5 +1,6 @@
 package lesson4;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -219,6 +220,47 @@ public class TicTacToe {
 
         System.out.println("\nХод компьютра!");
 
+
+        // TODO перенести это в отдельную функцию
+        // найти самую длинную цепочку от последнего хода человека
+
+        int lineSize;
+        int maxLineSize = 0;
+        int[] maxLineCoef = new int[]{0,-1};
+
+        lineSize = findMaxLine(0,-1);
+        if (lineSize > maxLineSize) {
+            maxLineSize = lineSize;
+            maxLineCoef = new int[]{0,-1};
+        }
+
+        lineSize = findMaxLine(-1,0);
+        if (lineSize > maxLineSize) {
+            maxLineSize = lineSize;
+            maxLineCoef = new int[]{-1,0};
+        }
+
+        lineSize = findMaxLine(-1,-1);
+        if (lineSize > maxLineSize) {
+            maxLineSize = lineSize;
+            maxLineCoef = new int[]{-1,-1};
+        }
+
+        lineSize = findMaxLine(-1,1);
+        if (lineSize > maxLineSize) {
+            maxLineSize = lineSize;
+            maxLineCoef = new int[]{-1,1};
+        }
+
+
+//        System.out.println(maxLineSize);
+//        System.out.println(Arrays.toString(maxLineCoef));
+
+
+
+
+
+
         do {
             rowNumber = random.nextInt(SIZE);
             colNumber = random.nextInt(SIZE);
@@ -229,5 +271,32 @@ public class TicTacToe {
         turnsCount++;
     }
 
+    private static int findMaxLine(int coefficientX, int coefficientY) {
+        int x = lustTurnCoordinates[0];
+        int y = lustTurnCoordinates[1];
+        char symbol = MAP[x][y];
+
+        int maxLineSize = 0;
+
+        for (int delta = 1 - countChipsToWin, sumChips = 0; delta < countChipsToWin; delta++) {
+            int rowNumber = x + delta * coefficientX;
+            int colNumber = y + delta * coefficientY;
+
+            if (isWrongNumber(rowNumber, colNumber))
+                continue;
+
+            if (MAP[rowNumber][colNumber] == symbol) {
+                sumChips++;
+            }
+            else {
+                if (sumChips > maxLineSize)
+                    maxLineSize = sumChips;
+
+                sumChips = 0;
+            }
+       }
+
+        return maxLineSize;
+    }
 
 }
