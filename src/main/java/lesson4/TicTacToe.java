@@ -5,8 +5,13 @@ import java.util.Scanner;
 
 public class TicTacToe {
 
-    static final int SIZE = 3;
+    static final int SIZE = 7; //10;
+    static final int MIN_SIZE = 3;
+    static final int MAX_SIZE = 12;
+
+    static int countChipsToWin;
     static int turnsCount;
+    static int[] lustTurnCoordinates = new int[2];
 
     static final char[][] MAP = new char[SIZE][SIZE];
 
@@ -20,19 +25,28 @@ public class TicTacToe {
     static final Scanner in = new Scanner(System.in);
     static final Random random = new Random();
 
-
-
     public static void main(String[] args) {
         turnGame();
     }
 
     private static void turnGame() {
 
+        countChipsToWin = calcChipsToWin();
+
         initMap();
 
         printMap();
         
         playGame();
+    }
+
+    private static int calcChipsToWin() {
+        return switch (SIZE) {
+            case 1, 2 -> 0;
+            case 3, 4, 5 -> 3;
+            case 6, 7, 8, 9 -> 4;
+            default -> 5;
+        };
     }
 
     private static void initMap() {
@@ -44,12 +58,17 @@ public class TicTacToe {
     }
 
     private static void printMap() {
+        printHeader();
         printHeaderMap();
         printBodyMap();
     }
 
+    private static void printHeader() {
+        System.out.printf("Размер поля %d x %d. Выигрыш — %d %s в ряд\n\n", SIZE, SIZE, countChipsToWin, countChipsToWin < 5 ? "фишки" : "фишек");
+    }
+
     private static void printHeaderMap() {
-        System.out.print(HEADER_FIRST_SYMBOL + EMPTY);
+        System.out.printf("%2s%s", HEADER_FIRST_SYMBOL, EMPTY);
 
         for (int i = 0; i < SIZE; i++) {
             printMapNumber(i);
@@ -58,21 +77,20 @@ public class TicTacToe {
     }
 
     private static void printMapNumber(int i) {
-        System.out.print(i + 1 + EMPTY);
+        System.out.printf("%2d%s", i + 1, EMPTY);
     }
 
     private static void printBodyMap() {
         for (int i = 0; i < SIZE; i++) {
             printMapNumber(i);
             for (int j = 0; j < SIZE; j++) {
-                System.out.print(MAP[i][j] + EMPTY);
+                System.out.printf("%2s%s", MAP[i][j], EMPTY);
             }
             System.out.println();
         }
     }
 
     private static void playGame() {
-
         while (true) {
             turnOfHuman();
             printMap();
@@ -82,8 +100,6 @@ public class TicTacToe {
             printMap();
             checkEnd(DOT_AI);
         }
-
-
     }
 
     private static void turnOfHuman() {
@@ -116,6 +132,7 @@ public class TicTacToe {
 
         } while (!isInputValid || !isHumanTurnValid(rowNumber, colNumber));
 
+        lustTurnCoordinates = new int[]{rowNumber, colNumber};
         MAP[rowNumber][colNumber] = DOT_HUMAN;
         turnsCount++;
     }
@@ -126,22 +143,22 @@ public class TicTacToe {
     }
 
     private static boolean isHumanTurnValid(int rowNumber, int colNumber) {
-        if (!isNumbersValid(rowNumber, colNumber)) {
+        if (isWrongNumber(rowNumber, colNumber)) {
             System.out.println("\nПроверьте значения строки и столбца.");
             return false;
-        } else if (!isCellFree(rowNumber, colNumber)) {
+        } else if (isCellOccupied(rowNumber, colNumber)) {
             System.out.println("\nВы выбрали занятую чейку.");
             return false;
         }
         return true;
     }
 
-    private static boolean isNumbersValid(int rowNumber, int colNumber) {
-        return rowNumber < SIZE && rowNumber >= 0 && colNumber < SIZE && colNumber >= 0;
+    private static boolean isWrongNumber(int rowNumber, int colNumber) {
+        return rowNumber >= SIZE || rowNumber < 0 || colNumber >= SIZE || colNumber < 0;
     }
 
-    private static boolean isCellFree(int rowNumber, int colNumber) {
-        return MAP[rowNumber][colNumber] == DOT_EMPTY;
+    private static boolean isCellOccupied(int rowNumber, int colNumber) {
+        return MAP[rowNumber][colNumber] != DOT_EMPTY;
     }
 
     private static void checkEnd(char symbol) {
@@ -164,18 +181,35 @@ public class TicTacToe {
     }
 
     private static boolean checkWin(char symbol) {
+        if (turnsCount < (countChipsToWin * 2 - 1))             // проверить достаточность ходов для выигрыша
+            return false;
 
-        if (MAP[0][0] == symbol && MAP[0][1] == symbol && MAP[0][2] == symbol) return true;
-        if (MAP[1][0] == symbol && MAP[1][1] == symbol && MAP[1][2] == symbol) return true;
-        if (MAP[2][0] == symbol && MAP[2][1] == symbol && MAP[2][2] == symbol) return true;
+        return checkLineForWin(-1, 0)       // проверить горизонталь
+                || checkLineForWin(0, -1)   // проверить вертикаль
+                || checkLineForWin(-1, -1)  // проверить главную диагональ
+                || checkLineForWin(-1, 1);  // проверить побочную диагональ
+    }
 
-        if (MAP[0][0] == symbol && MAP[1][0] == symbol && MAP[2][0] == symbol) return true;
-        if (MAP[0][1] == symbol && MAP[1][1] == symbol && MAP[2][1] == symbol) return true;
-        if (MAP[0][2] == symbol && MAP[1][2] == symbol && MAP[2][2] == symbol) return true;
+    private static boolean checkLineForWin(int coefficientX, int coefficientY) {
+        int x = lustTurnCoordinates[0];
+        int y = lustTurnCoordinates[1];
+        char symbol = MAP[x][y];
 
-        if (MAP[0][0] == symbol && MAP[1][1] == symbol && MAP[2][2] == symbol) return true;
-        if (MAP[0][2] == symbol && MAP[1][1] == symbol && MAP[2][0] == symbol) return true;
+        for (int delta = 1 - countChipsToWin, sumChips = 0; delta < countChipsToWin; delta++) {
+            int rowNumber = x + delta * coefficientX;
+            int colNumber = y + delta * coefficientY;
 
+            if (isWrongNumber(rowNumber, colNumber))
+                continue;
+
+            if (MAP[rowNumber][colNumber] == symbol)
+                sumChips++;
+            else
+                sumChips = 0;
+
+            if (sumChips >= countChipsToWin)
+                return true;
+        }
         return false;
     }
 
@@ -188,8 +222,9 @@ public class TicTacToe {
         do {
             rowNumber = random.nextInt(SIZE);
             colNumber = random.nextInt(SIZE);
-        } while (!isCellFree(rowNumber, colNumber));
+        } while (isCellOccupied(rowNumber, colNumber));
 
+        lustTurnCoordinates = new int[]{rowNumber, colNumber};
         MAP[rowNumber][colNumber] = DOT_AI;
         turnsCount++;
     }
