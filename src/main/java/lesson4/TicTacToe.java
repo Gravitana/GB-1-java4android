@@ -185,20 +185,20 @@ public class TicTacToe {
         if (turnsCount < (countChipsToWin * 2 - 1))             // проверить достаточность ходов для выигрыша
             return false;
 
-        return checkLineForWin(-1, 0)       // проверить горизонталь
-                || checkLineForWin(0, -1)   // проверить вертикаль
+        return checkLineForWin(0, -1)       // проверить горизонталь
+                || checkLineForWin(-1, 0)   // проверить вертикаль
                 || checkLineForWin(-1, -1)  // проверить главную диагональ
                 || checkLineForWin(-1, 1);  // проверить побочную диагональ
     }
 
-    private static boolean checkLineForWin(int coefficientX, int coefficientY) {
-        int x = lustTurnCoordinates[0];
-        int y = lustTurnCoordinates[1];
-        char symbol = MAP[x][y];
+    private static boolean checkLineForWin(int coefficientRow, int coefficientCol) {
+        int lustTurnRow = lustTurnCoordinates[0];
+        int lustTurnCol = lustTurnCoordinates[1];
+        char symbol = MAP[lustTurnRow][lustTurnCol];
 
         for (int delta = 1 - countChipsToWin, sumChips = 0; delta < countChipsToWin; delta++) {
-            int rowNumber = x + delta * coefficientX;
-            int colNumber = y + delta * coefficientY;
+            int rowNumber = lustTurnRow + delta * coefficientRow;
+            int colNumber = lustTurnCol + delta * coefficientCol;
 
             if (isWrongNumber(rowNumber, colNumber))
                 continue;
@@ -220,67 +220,128 @@ public class TicTacToe {
 
         System.out.println("\nХод компьютра!");
 
+        // найти коэффициенты для самой длинной цепочки от последнего хода человека
+        int[] coef = findLongestLine();
 
-        // TODO перенести это в отдельную функцию
-        // найти самую длинную цепочку от последнего хода человека
+        int[] turnCoordinates = doBlockLine(coef);
 
+        System.out.printf("Ход человека: %2d %2d %n", lustTurnCoordinates[0] + 1, lustTurnCoordinates[1] + 1); // TODO remove after debug
+
+        if (isWrongNumber(turnCoordinates[0], turnCoordinates[1])) {
+            do {
+                rowNumber = random.nextInt(SIZE);
+                colNumber = random.nextInt(SIZE);
+            } while (isCellOccupied(rowNumber, colNumber));
+//            System.out.println("Случайные координаты"); // TODO remove after debug
+        } else {
+            rowNumber = turnCoordinates[0];
+            colNumber = turnCoordinates[1];
+//            System.out.println("Попытка блокировки"); // TODO remove after debug
+        }
+
+//        System.out.println(Arrays.toString(coef)); // TODO remove after debug
+
+        lustTurnCoordinates = new int[]{rowNumber, colNumber};
+        MAP[rowNumber][colNumber] = DOT_AI;
+        turnsCount++;
+
+//        System.out.printf("Ход AI: %2d %2d %n", lustTurnCoordinates[0] + 1, lustTurnCoordinates[1] + 1); // TODO remove after debug
+    }
+
+    private static int[] findLongestLine() {
         int lineSize;
         int maxLineSize = 0;
-        int[] maxLineCoef = new int[]{0,-1};
+        int[] maxLineCoef = new int[]{0,0};
 
-        lineSize = findMaxLine(0,-1);
+        lineSize = calcMaxChipsInLine(0,-1);
         if (lineSize > maxLineSize) {
             maxLineSize = lineSize;
             maxLineCoef = new int[]{0,-1};
         }
 
-        lineSize = findMaxLine(-1,0);
+        lineSize = calcMaxChipsInLine(-1,0);
         if (lineSize > maxLineSize) {
             maxLineSize = lineSize;
             maxLineCoef = new int[]{-1,0};
         }
 
-        lineSize = findMaxLine(-1,-1);
+        lineSize = calcMaxChipsInLine(-1,-1);
         if (lineSize > maxLineSize) {
             maxLineSize = lineSize;
             maxLineCoef = new int[]{-1,-1};
         }
 
-        lineSize = findMaxLine(-1,1);
+        lineSize = calcMaxChipsInLine(-1,1);
         if (lineSize > maxLineSize) {
-            maxLineSize = lineSize;
+//            maxLineSize = lineSize;
             maxLineCoef = new int[]{-1,1};
         }
 
-
-//        System.out.println(maxLineSize);
-//        System.out.println(Arrays.toString(maxLineCoef));
-
-
-
-
-
-
-        do {
-            rowNumber = random.nextInt(SIZE);
-            colNumber = random.nextInt(SIZE);
-        } while (isCellOccupied(rowNumber, colNumber));
-
-        lustTurnCoordinates = new int[]{rowNumber, colNumber};
-        MAP[rowNumber][colNumber] = DOT_AI;
-        turnsCount++;
+        return maxLineCoef;
     }
 
-    private static int findMaxLine(int coefficientX, int coefficientY) {
-        int x = lustTurnCoordinates[0];
-        int y = lustTurnCoordinates[1];
-        char symbol = MAP[x][y];
+    private static int[] doBlockLine(int[] coef) {
+//        int[] turnCoordinates = new int[]{-1,-1};
+
+        int turnRow = -1;
+        int turnCol = -1;
+
+        int lustTurnRow = lustTurnCoordinates[0];
+        int lustTurnCol = lustTurnCoordinates[1];
+
+        int coefficientRow = coef[0];
+        int coefficientCol = coef[1];
+
+        int deltaTemp = 0;
+
+        // TODO цикл идёт задом наперёд? - возвращает координаты первой итерации
+
+//        for (int delta = 1 - countChipsToWin; delta < countChipsToWin; delta++) {
+        for (int delta = countChipsToWin; delta > 1 - countChipsToWin; delta--) {
+            int rowNumber = lustTurnRow + delta * coefficientRow;
+            int colNumber = lustTurnCol + delta * coefficientCol;
+
+            if (isWrongNumber(rowNumber, colNumber))
+                continue;
+
+//            if (isCellOccupied(rowNumber, colNumber))
+//                continue;
+
+            if (MAP[rowNumber][colNumber] == DOT_HUMAN) {
+                continue;
+            }
+
+            if (MAP[rowNumber][colNumber] == DOT_AI) {
+//                turnRow = -1;
+//                turnCol = -1;
+                continue;
+            }
+
+            if (MAP[rowNumber][colNumber] == DOT_EMPTY) {
+                turnRow = rowNumber;
+                turnCol = colNumber;
+
+//                deltaTemp = delta; // TODO remove after debug
+
+//                continue;
+            }
+        }
+
+//        System.out.printf("Дельта AI: %2d %n", deltaTemp); // TODO remove after debug
+
+        return new int[]{turnRow, turnCol};
+    }
+
+    private static int calcMaxChipsInLine(int coefficientRow, int coefficientCol) {
+        int lustTurnRow = lustTurnCoordinates[0];
+        int lustTurnCol = lustTurnCoordinates[1];
+        char symbol = MAP[lustTurnRow][lustTurnCol];
 
         int maxLineSize = 0;
 
         for (int delta = 1 - countChipsToWin, sumChips = 0; delta < countChipsToWin; delta++) {
-            int rowNumber = x + delta * coefficientX;
-            int colNumber = y + delta * coefficientY;
+            int rowNumber = lustTurnRow + delta * coefficientRow;
+            int colNumber = lustTurnCol + delta * coefficientCol;
 
             if (isWrongNumber(rowNumber, colNumber))
                 continue;
@@ -295,7 +356,6 @@ public class TicTacToe {
                 sumChips = 0;
             }
        }
-
         return maxLineSize;
     }
 
