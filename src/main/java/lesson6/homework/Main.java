@@ -37,13 +37,9 @@ public class Main {
 
         System.out.println();
 
-        System.out.printf("Количество животных: %d.\n", Animal.getCount());
-        System.out.printf("Количество котов: %d.\n", Cat.getCount());
-        System.out.printf("Количество собак: %d.\n", Dog.getCount());
-
-//        Animal.printCount();
-//        catMurzik.printCount();
-//        catMurzik.printCount();
+        System.out.printf("Количество котов: \t%d.\n", Cat.getCount());
+        System.out.printf("Количество собак: \t%d.\n", Dog.getCount());
+        System.out.printf("Всего животных: \t%d.\n", Animal.getCount());
 
     }
 }
