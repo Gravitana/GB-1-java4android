@@ -28,7 +28,6 @@ public class Main {
 
 //        doVoice(duck);
 
-
         Object[] objects = {
           new String("String"),
           cat,
@@ -39,19 +38,11 @@ public class Main {
 //        for (int i = 0; i < objects.length; i++) {
 //            System.out.println(objects[i].toString());
 //        }
-
-
-
     }
 
     public static void doVoice(Animal animal) {
         animal.voice();
     }
-
-
-
-
-
 
 }
 
