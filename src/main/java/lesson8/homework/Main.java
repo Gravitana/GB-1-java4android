@@ -16,14 +16,18 @@ public class Main {
         track.printInfo();
 
         for (Running obj : runnings) {
-            doRun(obj, track);
+            if (obj.isActive()) {
+                doRun(obj, track);
+            }
         }
 
         System.out.println();
         wall.printInfo();
 
         for (Jumping obj : jumpings) {
-            doJump(obj, wall);
+            if (obj.isActive()) {
+                doJump(obj, wall);
+            }
         }
     }
 

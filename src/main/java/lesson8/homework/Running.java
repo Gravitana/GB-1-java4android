@@ -1,6 +1,5 @@
 package lesson8.homework;
 
-public interface Running {
-    int runningDistance = 0;
+public interface Running extends Training {
     void run(Track track);
 }
