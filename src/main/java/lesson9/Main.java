@@ -106,6 +106,7 @@ public class Main {
     }
 
     private static void runAnimals() {
+/*
         HomeAnimal[] animals = {new Dog(), new Cat(), new Duck()};
         int i = 0;
         for (HomeAnimal animal : animals) {
@@ -119,6 +120,7 @@ public class Main {
             animal.action();
             i++;
         }
+*/
 
-}
+    }
 }
