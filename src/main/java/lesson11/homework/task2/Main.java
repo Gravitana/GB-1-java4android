@@ -1,8 +1,8 @@
-package lesson11.homework;
+package lesson11.homework.task2;
 
 import java.util.ArrayList;
 
-public class Task2 {
+public class Main {
     public static void main(String[] args) {
         testInteger();
         testString();

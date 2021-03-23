@@ -1,4 +1,4 @@
-package lesson11.homework;
+package lesson11.homework.task1;
 
 public class GenericStorage<E> {
     private E[] data;
