@@ -1,10 +1,8 @@
 package lesson11.generics;
 
-import java.io.Serializable;
-
-public class GenericStorage<E extends Comparable<E> & Serializable> {
+public class GenericStorage<E extends Comparable<E>> {
     private E[] data;
-    private int currentSize;
+    private int currentSize ;
 
     public GenericStorage(int size) {
         this.data = (E[]) new Object[size];
@@ -65,4 +63,5 @@ public class GenericStorage<E extends Comparable<E> & Serializable> {
         data[i] = data[j];
         data[j] = temp;
     }
+
 }

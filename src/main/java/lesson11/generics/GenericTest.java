@@ -1,17 +1,11 @@
 package lesson11.generics;
 
-import lesson11.common.ObjectStorage;
-import lesson5.Cat;
-import lesson6.Dog;
-
 public class GenericTest {
-
     public static void main(String[] args) {
         genericTest();
     }
 
     private static void genericTest() {
-
         GenericStorage<Integer> intStorage = new GenericStorage<>(5);
 
         intStorage.add(1);
@@ -38,9 +32,6 @@ public class GenericTest {
         String valueLast2 = stringStorage.get(stringStorage.getCurrentSize() - 1);
         System.out.println("Last value: " + valueLast2);
 
-//        GenericStorage<Cat> catGenericStorage = new GenericStorage<>(3);
-
+        GenericStorage<Cat> catGenericStorage = new GenericStorage<>(3);
     }
-
-
 }

@@ -1,7 +1,6 @@
 package lesson11.generics;
 
 public class Stats<E extends Number> {
-
     private E[] nums;
 
     public Stats(E... nums) {
@@ -10,16 +9,15 @@ public class Stats<E extends Number> {
 
     public double avg() {
         double sum = 0.0;
-        for (E num : nums) {
+        for (E num: nums) {
             sum += num.doubleValue();
         }
-        return sum / nums.length;
+        return sum/nums.length;
     }
 
-    private boolean isAvg(Stats<?> eStats) {
+    private boolean isAvg(Stats<?> eStats) { // <?>
         return Math.abs(eStats.avg() - avg()) < 0.001;
     }
-
 
     public static void main(String[] args) {
         Stats<Integer> ints = new Stats<>(1, 2, 3, 4, 5, 6);
@@ -28,7 +26,6 @@ public class Stats<E extends Number> {
         System.out.println("avg int: " + ints.avg());
         System.out.println("avg double: " + doubles.avg());
 
-        System.out.println("avg vs avg : " + ints.isAvg(doubles) );
+        System.out.println("avg vs avg: " + ints.isAvg(doubles));
     }
 }
-
