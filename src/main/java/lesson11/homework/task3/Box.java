@@ -18,7 +18,7 @@ public class Box <E extends Fruit> {
     }
 
     public boolean compare(Box<?> box) {
-        return box.getWeight() - getWeight() < 0.001;
+        return Math.abs(box.getWeight() - getWeight()) < 0.001;
     }
 
     public void pourAllInto(Box<E> box) {
