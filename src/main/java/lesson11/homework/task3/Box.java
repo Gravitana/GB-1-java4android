@@ -27,4 +27,15 @@ public class Box <E extends Fruit> {
         }
         items = new ArrayList<>();
     }
+
+    public void display() {
+        for (E item : items) {
+            System.out.print(item.getClass().getSimpleName() + " ");
+        }
+        System.out.println();
+    }
+
+    public ArrayList<E> getItems() {
+        return items;
+    }
 }
