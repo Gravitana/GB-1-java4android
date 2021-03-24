@@ -4,7 +4,16 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) throws MyArraySizeException, MyArrayDataException {
+/*
+    ----- комментарий преподавателя к сданному ДЗ
+    Отличная работа, но есть парочка замечаний.
 
+    public static void main(String[] args) throws MyArraySizeException, MyArrayDataException
+    Исключения все таки нужно было отловить в try catch. Да и бросать исключения из main не очнь хорошо. В тестовом проекте ничего страшнго, но в реальном приложении никогда так не делайте.
+
+    if (someArray.length != size)
+    Тут неплохо было бы проверить весть массив. Вдруг someArray[0].length, someArray[1].length не равны четырем.
+ */
         int standardArraySize = 4;
         int maxStringLength = 6;
 

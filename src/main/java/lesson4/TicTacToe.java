@@ -6,6 +6,11 @@ import java.util.Scanner;
 
 public class TicTacToe {
 
+    /*
+        ----- комментарий преподавателя к сданному ДЗ
+        Блокировка хода пока не доделана, но в остальном отличная работа
+     */
+
     static final int SIZE = 7; //10;
     static final int MIN_SIZE = 3;
     static final int MAX_SIZE = 12;

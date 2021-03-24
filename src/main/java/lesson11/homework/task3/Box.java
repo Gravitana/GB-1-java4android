@@ -20,6 +20,12 @@ public class Box <E extends Fruit> {
     public boolean compare(Box<?> box) {
         return Math.abs(box.getWeight() - getWeight()) < 0.001;
     }
+/*
+    ----- комментарий преподавателя к сданному ДЗ
+    3 задание. В методе compare, Box<?> значит что бокс может быть любого типа.
+    Будет работать т.к. другой бокс в принципе создать не получится из-за ограничения Box <E extends Fruit>,
+    но лучше явно указать что коробка может быть только с фруктами: compare(Box<? extends Fruit> box)
+ */
 
     public void pourAllInto(Box<E> box) {
         for (E item : items) {

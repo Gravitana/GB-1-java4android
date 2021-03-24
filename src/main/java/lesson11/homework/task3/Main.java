@@ -1,5 +1,11 @@
 package lesson11.homework.task3;
 
+/*
+    ----- комментарий преподавателя к сданному ДЗ
+    3 задание. В методе compare, Box<?> значит что бокс может быть любого типа.
+    Будет работать т.к. другой бокс в принципе создать не получится из-за ограничения Box <E extends Fruit>,
+    но лучше явно указать что коробка может быть только с фруктами: compare(Box<? extends Fruit> box)
+ */
 public class Main {
     public static void main(String[] args) {
         testCompare();

@@ -1,5 +1,4 @@
 package lesson11.homework.task1;
-
 public class GenericStorage<E> {
     private E[] data;
     private int currentSize ;
@@ -7,6 +6,11 @@ public class GenericStorage<E> {
     public GenericStorage(int size) {
         this.data = (E[]) new Object[size];
     }
+/*
+    ----- комментарий преподавателя к сданному ДЗ
+    1 задание. this.data = (E[]) new Object[size]; не очень безопасно использовать массивы обобщенного типа.
+    Рекомендую прочитать небольшую статью по этому поводу https://www.baeldung.com/java-generic-array
+ */
 
     public void add(E value) {
         add(value, currentSize);
