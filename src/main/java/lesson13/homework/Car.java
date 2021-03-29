@@ -19,15 +19,17 @@ public class Car implements Runnable {
 
     CountDownLatch finishedAll;
     CyclicBarrier startLine;
+    CountDownLatch winner;
 
 
-    public Car(Race race, int speed, CountDownLatch cdl, CyclicBarrier cb) {
+    public Car(Race race, int speed, CountDownLatch cdl, CyclicBarrier cb, CountDownLatch w) {
         this.race = race;
         this.speed = speed;
         CARS_COUNT++;
         this.name = "Участник #" + CARS_COUNT;
         finishedAll = cdl;
         startLine = cb;
+        winner = w;
     }
 
     @Override
@@ -46,5 +48,7 @@ public class Car implements Runnable {
         }
 
         finishedAll.countDown();
+
+        winner.countDown();
     }
 }
