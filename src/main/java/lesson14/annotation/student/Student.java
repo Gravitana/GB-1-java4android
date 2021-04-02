@@ -1,7 +1,7 @@
 package lesson14.annotation.student;
 
-@XTable(tableName = "newstudents")
-public class Student {
+@XTable(tableName = "newstudents") // какую таблицу берём из БД
+public class Student { // какие поля заполняем автоматически
     @XField
     int id;
 
@@ -15,7 +15,7 @@ public class Student {
     String secret;
 
 
-   public Student(int id, String name, int age, String secret) {
+   public Student(int id, String name, int age, String secret) { // при использовании аннотаций конструктор может и не понадобиться
         this.id = id;
         this.name = name;
         this.age = age;
