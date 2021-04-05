@@ -3,6 +3,7 @@ package lesson14.homework;
 import java.util.ArrayList;
 import java.util.Random;
 
+public class ArrayCutter {
 /*
     1. Написать метод, которому в качестве аргумента передается не пустой одномерный целочисленный массив.
        Метод должен вернуть новый массив, который получен путем вытаскивания из исходного массива элементов,
@@ -10,7 +11,6 @@ import java.util.Random;
        Входной массив должен содержать хотя бы одну четверку, иначе в методе необходимо выбросить RuntimeException.
  */
 
-public class ArrayCutter {
     public static void main(String[] args) {
         ArrayCutter arrayCutter = new ArrayCutter();
         int size = 10;
